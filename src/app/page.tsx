@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SearchForm } from "@/components/blog/SearchForm";
 import { PostCard } from "@/components/blog/PostCard";
+import { HeroCarousel } from "@/components/home/HeroCarousel";
 import { BLOG_CATEGORIES } from "@/lib/blogTaxonomy";
 import { getAllPosts } from "@/lib/posts";
 import { SITE } from "@/lib/site";
@@ -12,64 +13,17 @@ export default function Home() {
   const featured = posts.filter((p) => p.frontmatter.featured).slice(0, 3);
   const latest = posts.slice(0, 6);
   const mostRead = posts.slice(0, 4);
-  const hero = featured[0] ?? posts[0];
-  const highlighted = featured.length > 1 ? featured.slice(1, 3) : posts.slice(1, 3);
+  const heroPosts = featured.length >= 3 ? featured.slice(0, 3) : posts.slice(0, 3);
+  const highlighted = posts.filter((p) => !heroPosts.some((hp) => hp.slug === p.slug)).slice(0, 2);
 
   return (
     <div className="bg-[color:var(--surface-muted)]">
       <section className="border-b border-[color:var(--border)] bg-white/90">
         <Container>
-          <div className="grid gap-8 py-10 lg:grid-cols-[2fr_1fr]">
-            <article className="overflow-hidden rounded-[32px] border border-[color:var(--border)] bg-[color:var(--surface-card)] shadow-[var(--shadow-soft)]">
-              <div className="grid gap-0 md:grid-cols-2">
-                <div className="flex flex-col gap-5 p-8">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-[color:var(--surface-pill)] px-4 py-1 text-xs font-semibold uppercase tracking-wide text-[color:var(--brand-secondary)]">
-                    Guia exclusivo
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="relative h-10 w-32">
-                      <Image src="/logo-blog.svg" alt="Citi Imóveis" fill className="object-contain" priority />
-                    </div>
-                    <span className="text-sm text-[color:var(--text-muted)]">Conteúdo oficial</span>
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--text-muted)]">
-                      {hero?.frontmatter.category ?? "Conteúdo"}
-                    </p>
-                    <h1 className="mt-3 text-3xl font-semibold leading-tight text-[color:var(--brand-secondary)] md:text-4xl">
-                      {hero?.frontmatter.title ?? "Insights imobiliários em primeira mão"}
-                    </h1>
-                    <p className="mt-3 text-sm leading-6 text-[color:var(--text-muted)]">
-                      {hero?.frontmatter.description ??
-                        "Análises profundas sobre compra, venda e investimentos em imóveis com a curadoria da Citi."}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    <Link
-                      href={hero ? `/${hero.slug}` : "/buscar"}
-                      className="inline-flex items-center justify-center rounded-full bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-semibold text-white shadow-[var(--shadow-soft)] transition hover:bg-[color:var(--brand-primary-dark)]"
-                    >
-                      Ler guia completo
-                    </Link>
-                    <a
-                      className="inline-flex items-center justify-center rounded-full border border-[color:var(--border)] px-6 py-3 text-sm font-semibold text-[color:var(--brand-secondary)] hover:border-[color:var(--brand-primary)]"
-                      href={SITE.whatsappUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Falar com especialista
-                    </a>
-                  </div>
-                </div>
-                <div className="relative min-h-[320px] bg-[color:var(--brand-secondary)]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[rgba(255,107,0,0.35)] via-transparent to-[rgba(0,0,0,0.7)]" />
-                  <div className="absolute inset-6 rounded-[28px] border border-white/15 bg-[url('https://images.unsplash.com/photo-1499916078039-922301b0eb9b?auto=format&fit=crop&w=900&q=80')] bg-cover bg-center shadow-[inset_0_0_0_1000px_rgba(0,0,0,0.25)]" />
-                  <div className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/95 p-4 text-sm text-[color:var(--brand-secondary)] shadow-lg">
-                    Indicadores ao vivo · <span className="font-semibold text-[color:var(--brand-primary)]">Mercado Imobiliário</span>
-                  </div>
-                </div>
-              </div>
-            </article>
+          <div className="grid gap-8 py-10 xl:grid-cols-[2fr_1fr]">
+            <div>
+              <HeroCarousel posts={heroPosts} />
+            </div>
 
             <aside className="rounded-[32px] border border-[color:var(--border)] bg-[color:var(--surface-2)] p-6 shadow-sm">
               <div className="flex items-center justify-between">
@@ -121,9 +75,12 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="mt-6 grid gap-4 lg:grid-cols-3">
-            {[hero, ...highlighted].filter(Boolean).map((p) => (
-              <PostCard key={p!.slug} post={p!} variant="hero" />
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            {heroPosts.map((p) => (
+              <PostCard key={p.slug} post={p} variant="hero" />
+            ))}
+            {highlighted.map((p) => (
+              <PostCard key={p.slug} post={p} />
             ))}
           </div>
         </Container>

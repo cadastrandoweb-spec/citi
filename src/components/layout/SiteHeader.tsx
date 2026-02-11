@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SITE } from "@/lib/site";
@@ -8,8 +9,8 @@ export function SiteHeader() {
       <Container>
         <div className="flex h-18 items-center justify-between gap-6 py-3">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-muted)]">
-              <span className="text-lg font-bold text-[color:var(--brand-primary)]">Ci</span>
+            <div className="flex h-11 w-32 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-white px-3">
+              <Image src="/citi.avif" alt="Citi Imóveis" width={90} height={32} className="object-contain" priority />
             </div>
             <div className="leading-tight">
               <div className="text-sm uppercase tracking-[0.2em] text-[color:var(--text-muted)]">Blog</div>
