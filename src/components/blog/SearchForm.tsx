@@ -9,7 +9,7 @@ export function SearchForm() {
 
   return (
     <form
-      className="flex w-full items-center gap-2"
+      className="flex w-full items-center gap-3"
       onSubmit={(e) => {
         e.preventDefault();
         const params = new URLSearchParams();
@@ -21,12 +21,12 @@ export function SearchForm() {
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Buscar no blog..."
-        className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 text-sm outline-none focus:ring-2 focus:ring-[color:var(--brand-300)]"
+        placeholder="Busque por temas, cidades ou palavras-chave"
+        className="h-12 w-full rounded-full border border-[color:var(--border)] bg-white px-5 text-sm outline-none transition focus:border-[color:var(--brand-primary)]"
         name="q"
       />
       <button
-        className="inline-flex h-12 shrink-0 items-center justify-center rounded-2xl bg-[color:var(--brand-600)] px-5 text-sm font-semibold text-white shadow-sm hover:bg-[color:var(--brand-700)]"
+        className="inline-flex h-12 shrink-0 items-center justify-center rounded-full bg-[color:var(--brand-primary)] px-6 text-sm font-semibold text-white shadow-[var(--shadow-soft)] transition hover:bg-[color:var(--brand-primary-dark)]"
         type="submit"
       >
         Buscar

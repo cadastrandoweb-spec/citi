@@ -1,26 +1,37 @@
 import Link from "next/link";
 import type { Post } from "@/lib/posts";
 
-export function PostCard({ post }: { post: Post }) {
+type Variant = "default" | "hero";
+
+export function PostCard({ post, variant = "default" }: { post: Post; variant?: Variant }) {
+  const base =
+    variant === "hero"
+      ? "group overflow-hidden rounded-[28px] border border-[color:var(--border)] bg-white p-6 shadow-[var(--shadow-soft)]"
+      : "group rounded-2xl border border-[color:var(--border)] bg-white p-5 shadow-sm transition hover:shadow-md";
+
   return (
-    <article className="group rounded-2xl border border-black/10 bg-white p-5 shadow-sm transition hover:shadow-md">
+    <article className={base}>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-wide text-[color:var(--brand-700)]">
+          <div className="inline-flex items-center gap-2 rounded-full bg-[color:var(--surface-pill)] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[color:var(--brand-secondary)]">
             {post.frontmatter.category}
           </div>
-          <h3 className="mt-2 text-lg font-semibold leading-snug text-black">
-            <Link className="hover:underline" href={`/${post.slug}`}>
+          <h3
+            className={`${
+              variant === "hero"
+                ? "mt-3 text-2xl font-semibold leading-tight text-[color:var(--brand-secondary)]"
+                : "mt-2 text-lg font-semibold leading-snug text-[color:var(--brand-secondary)]"
+            }`}
+          >
+            <Link className="hover:text-[color:var(--brand-primary)]" href={`/${post.slug}`}>
               {post.frontmatter.title}
             </Link>
           </h3>
-          <p className="mt-2 line-clamp-3 text-sm text-black/60">
+          <p className="mt-2 line-clamp-3 text-sm text-[color:var(--text-muted)]">
             {post.frontmatter.description}
           </p>
         </div>
-        <div className="shrink-0 text-xs text-black/50">
-          {post.readingTimeText}
-        </div>
+        <div className="shrink-0 text-xs text-[color:var(--text-muted)]">{post.readingTimeText}</div>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">
@@ -28,7 +39,7 @@ export function PostCard({ post }: { post: Post }) {
           <Link
             key={t}
             href={`/tag/${encodeURIComponent(t.toLowerCase())}`}
-            className="rounded-full bg-zinc-50 px-3 py-1 text-xs text-black/60 ring-1 ring-black/10 hover:bg-zinc-100"
+            className="rounded-full bg-[color:var(--surface-pill)] px-3 py-1 text-xs text-[color:var(--brand-secondary)] ring-1 ring-[color:var(--border)] hover:ring-[color:var(--brand-primary)]"
           >
             {t}
           </Link>

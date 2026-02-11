@@ -4,36 +4,45 @@ import { SITE } from "@/lib/site";
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-black/5 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-40 border-b border-[color:var(--border)] bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
       <Container>
-        <div className="flex h-16 items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="font-semibold tracking-tight text-[color:var(--brand-900)]">
-              Citi Imóveis
-            </Link>
-            <span className="hidden text-sm text-black/50 sm:inline">Blog</span>
-          </div>
+        <div className="flex h-18 items-center justify-between gap-6 py-3">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-muted)]">
+              <span className="text-lg font-bold text-[color:var(--brand-primary)]">Ci</span>
+            </div>
+            <div className="leading-tight">
+              <div className="text-sm uppercase tracking-[0.2em] text-[color:var(--text-muted)]">Blog</div>
+              <div className="text-lg font-semibold text-[color:var(--text)]">Citi Imóveis</div>
+            </div>
+          </Link>
 
-          <nav className="hidden items-center gap-6 text-sm text-black/70 md:flex">
-            <Link className="hover:text-black" href="/buscar">
-              Buscar
+          <nav className="hidden items-center gap-6 text-sm text-[color:var(--text-muted)] lg:flex">
+            <Link className="font-medium text-[color:var(--text)] hover:text-[color:var(--brand-primary)]" href="/">
+              Início
             </Link>
-            <a className="hover:text-black" href={`${SITE.mainSiteUrl}/busca`} target="_blank" rel="noreferrer">
+            <Link className="hover:text-[color:var(--brand-primary)]" href="/buscar">
+              Guias & Dicas
+            </Link>
+            <Link className="hover:text-[color:var(--brand-primary)]" href="/categoria/investimentos-imobiliarios">
+              Investimentos
+            </Link>
+            <a className="hover:text-[color:var(--brand-primary)]" href={`${SITE.mainSiteUrl}/busca`} target="_blank" rel="noreferrer">
               Buscar imóvel
             </a>
-            <a className="hover:text-black" href={`${SITE.mainSiteUrl}/contato`} target="_blank" rel="noreferrer">
+            <a className="hover:text-[color:var(--brand-primary)]" href={`${SITE.mainSiteUrl}/contato`} target="_blank" rel="noreferrer">
               Contato
             </a>
           </nav>
 
           <div className="flex items-center gap-3">
             <a
-              className="inline-flex h-10 items-center justify-center rounded-full bg-[color:var(--brand-600)] px-4 text-sm font-semibold text-white shadow-sm hover:bg-[color:var(--brand-700)]"
+              className="inline-flex h-11 items-center justify-center rounded-full bg-[color:var(--brand-primary)] px-5 text-sm font-semibold text-white shadow-[var(--shadow-soft)] transition hover:bg-[color:var(--brand-primary-dark)]"
               href={SITE.whatsappUrl}
               target="_blank"
               rel="noreferrer"
             >
-              WhatsApp
+              Atendimento WhatsApp
             </a>
           </div>
         </div>

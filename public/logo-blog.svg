@@ -1,0 +1,5 @@
+<svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="48" rx="12" fill="#0b0b0b"/>
+  <path d="M24 14H14v20h10c6.6 0 12-5.4 12-12s-5.4-8-12-8z" fill="#ff6b00"/>
+  <text x="60" y="30" fill="white" font-size="20" font-weight="700" font-family="'Inter', Arial, sans-serif">Citi Imóveis</text>
+</svg>
