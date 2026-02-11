@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect x="72" y="72" width="1056" height="486" rx="36" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.20)"/>
+  <text x="120" y="230" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="60">
+    Blog Citi Imóveis
+  </text>
+  <text x="120" y="310" fill="rgba(255,255,255,0.9)" font-family="Arial, Helvetica, sans-serif" font-weight="500" font-size="34">
+    Conteúdo imobiliário moderno, rápido e otimizado para SEO
+  </text>
+  <text x="120" y="420" fill="rgba(255,255,255,0.85)" font-family="Arial, Helvetica, sans-serif" font-weight="500" font-size="28">
+    Compra • Venda • Investimento • Financiamento
+  </text>
+</svg>
