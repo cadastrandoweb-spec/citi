@@ -21,6 +21,7 @@ export function HeroCarousel({ posts }: { posts: Post[] }) {
   const current = slides[index];
   const background = current.frontmatter.image?.url ??
     "https://images.unsplash.com/photo-1499916078039-922301b0eb9b?auto=format&fit=crop&w=1800&q=80";
+  const hasMultiple = slides.length > 1;
 
   return (
     <div className="relative overflow-hidden rounded-[32px] border border-[color:var(--border)] bg-[color:var(--brand-secondary)] text-white shadow-[var(--shadow-soft)]">
@@ -28,6 +29,39 @@ export function HeroCarousel({ posts }: { posts: Post[] }) {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `linear-gradient(120deg, rgba(0,0,0,.65), rgba(0,0,0,.3)), url(${background})` }}
       />
+      {hasMultiple ? (
+        <div className="absolute top-6 right-6 z-20 flex items-center gap-3 rounded-full bg-black/35 px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.2em] text-white/80 backdrop-blur">
+          <div className="flex items-center gap-1">
+            {slides.map((_, idx) => (
+              <button
+                key={`dot-${idx}`}
+                onClick={() => setIndex(idx)}
+                className={`h-2.5 w-6 rounded-full transition ${
+                  idx === index ? "bg-white" : "bg-white/30"
+                }`}
+                aria-label={`Mostrar destaque ${idx + 1}`}
+              />
+            ))}
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIndex((prev) => (prev - 1 + slides.length) % slides.length)}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white hover:bg-white/30"
+              aria-label="Anterior"
+            >
+              ←
+            </button>
+            <button
+              onClick={() => setIndex((prev) => (prev + 1) % slides.length)}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white hover:bg-white/30"
+              aria-label="Próximo"
+            >
+              →
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       <div className="relative z-10 grid gap-10 p-8 lg:grid-cols-[1.5fr_1fr] lg:items-end">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em]">
@@ -70,34 +104,6 @@ export function HeroCarousel({ posts }: { posts: Post[] }) {
         </div>
       </div>
 
-      <div className="absolute bottom-6 left-6 flex items-center gap-2">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setIndex(idx)}
-            className={`h-2 w-8 rounded-full transition ${
-              idx === index ? "bg-white" : "bg-white/40"
-            }`}
-            aria-label={`Mostrar destaque ${idx + 1}`}
-          />
-        ))}
-      </div>
-      <div className="absolute bottom-6 right-6 flex gap-2">
-        <button
-          onClick={() => setIndex((prev) => (prev - 1 + slides.length) % slides.length)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white hover:bg-white/30"
-          aria-label="Anterior"
-        >
-          ←
-        </button>
-        <button
-          onClick={() => setIndex((prev) => (prev + 1) % slides.length)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white hover:bg-white/30"
-          aria-label="Próximo"
-        >
-          →
-        </button>
-      </div>
     </div>
   );
 }
